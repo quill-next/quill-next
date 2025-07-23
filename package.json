@@ -16,7 +16,8 @@
   },
   "pnpm": {
     "overrides": {
-      "playwright": "1.49.0"
+      "playwright": "1.49.0",
+      "stylus": "github:stylus/stylus#0.64.0"
     }
   },
   "workspaces": [

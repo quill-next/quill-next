@@ -6,6 +6,7 @@ settings:
 
 overrides:
   playwright: 1.49.0
+  stylus: github:stylus/stylus#0.64.0
 
 importers:
 
@@ -72,7 +73,7 @@ importers:
         version: 7.18.0(eslint@8.57.1)(typescript@5.8.3)
       '@vitest/browser':
         specifier: ^3.1.1
-        version: 3.1.1(playwright@1.49.0)(vite@6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0))(vitest@3.1.1)
+        version: 3.1.1(playwright@1.49.0)(vite@6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0))(vitest@3.1.1)
       babel-loader:
         specifier: ^9.1.3
         version: 9.2.1(@babel/core@7.26.10)(webpack@5.99.2)
@@ -137,11 +138,11 @@ importers:
         specifier: ^3.3.3
         version: 3.3.4(webpack@5.99.2)
       stylus:
-        specifier: 0.0.1-security
-        version: 0.0.1-security
+        specifier: github:stylus/stylus#0.64.0
+        version: https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9
       stylus-loader:
         specifier: ^7.1.3
-        version: 7.1.3(stylus@0.0.1-security)(webpack@5.99.2)
+        version: 7.1.3(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(webpack@5.99.2)
       svgo:
         specifier: ^3.2.0
         version: 3.3.2
@@ -162,7 +163,7 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^3.1.1
-        version: 3.1.1(@types/debug@4.1.12)(@types/node@20.17.30)(@vitest/browser@3.1.1)(jsdom@22.1.0)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0)
+        version: 3.1.1(@types/debug@4.1.12)(@types/node@20.17.30)(@vitest/browser@3.1.1)(jsdom@22.1.0)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0)
       webpack:
         specifier: ^5.89.0
         version: 5.99.2(webpack-cli@5.1.4)
@@ -262,7 +263,7 @@ importers:
         version: 5.8.3
       vite:
         specifier: ^6.2.5
-        version: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0)
+        version: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0)
       vite-plugin-css-injected-by-js:
         specifier: ^3.5.2
         version: 3.5.2(vite@6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(terser@5.39.0))
@@ -362,6 +363,9 @@ importers:
         version: 1.86.3
 
 packages:
+
+  '@adobe/css-tools@4.3.3':
+    resolution: {integrity: sha512-rE0Pygv0sEZ4vBWHlAgJLGDU7Pm8xoO6p3wsEceb7GYAjScrOHpEo8KK/eVkAcnSM+slAEtXjA2JpdjLp4fJQQ==}
 
   '@adobe/css-tools@4.4.2':
     resolution: {integrity: sha512-baYZExFpsdkBNuvGKTKWCwKH57HRZLVtycZS05WTQNVOiXVSeAki3nU35zlRbToeMW8aHlJfyS+1C4BOv27q0A==}
@@ -2964,6 +2968,7 @@ packages:
 
   '@vitest/browser@3.1.1':
     resolution: {integrity: sha512-A+A69mMtrj1RPh96LfXGc309KSXhy2MslvyL+cp9+Y5EVdoJD4KfXDx/3SSlRGN70+hIoJ3RRbTidTvj18PZ/A==}
+    version: 3.1.1
     peerDependencies:
       playwright: 1.49.0
       safaridriver: '*'
@@ -4378,6 +4383,10 @@ packages:
   glob@10.4.2:
     resolution: {integrity: sha512-GwMlUF6PkPo3Gk21UxkCohOv0PLcIXVtKyLlpEI28R/cO/4eNOdmLk3CMW1wROV/WR/EsZOWAfBbBOqYvs88/w==}
     engines: {node: '>=16 || 14 >=14.18'}
+    hasBin: true
+
+  glob@10.4.5:
+    resolution: {integrity: sha512-7Bv8RF0k6xjo7d4A/PxYLbUCfb6c+Vpd2/mB2yRDlew7Jb5hEXiCD9ibfO7wpk8i4sevK6DFny9h7EYbM3/sHg==}
     hasBin: true
 
   glob@7.2.3:
@@ -6185,6 +6194,9 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
 
+  sax@1.4.1:
+    resolution: {integrity: sha512-+aWOz7yVScEGoKNd4PA10LZ8sk0A/z5+nXQG5giUO5rprX9jgYsTdov9qCchZiPIZezbZH+jRut8nPodFAX4Jg==}
+
   saxes@6.0.0:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
     engines: {node: '>=v12.22.7'}
@@ -6519,13 +6531,17 @@ packages:
 
   stylus-loader@7.1.3:
     resolution: {integrity: sha512-TY0SKwiY7D2kMd3UxaWKSf3xHF0FFN/FAfsSqfrhxRT/koXTwffq2cgEWDkLQz7VojMu7qEEHt5TlMjkPx9UDw==}
+    version: 7.1.3
     engines: {node: '>= 14.15.0'}
     peerDependencies:
       stylus: '>=0.52.4'
       webpack: ^5.0.0
 
-  stylus@0.0.1-security:
-    resolution: {integrity: sha512-qTLX5NJwuj5dqdJyi1eAjXGE4HfjWDoPLbSIpYWn/rAEdiyZnsngS/Yj0BRjM7wC41e/+spK4QCXFqz7LM0fFQ==}
+  stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9:
+    resolution: {tarball: https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9}
+    version: 0.64.0
+    engines: {node: '>=16'}
+    hasBin: true
 
   supports-color@5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
@@ -6923,6 +6939,7 @@ packages:
 
   vite-node@3.1.1:
     resolution: {integrity: sha512-V+IxPAE2FvXpTCHXyNem0M+gWm6J7eRyWPR6vYoG/Gl+IscNOjXzztUhimQgTxaAoUoj40Qqimaa0NLIOOAH4w==}
+    version: 3.1.1
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
 
@@ -6938,6 +6955,7 @@ packages:
 
   vite@6.2.5:
     resolution: {integrity: sha512-j023J/hCAa4pRIUH6J9HemwYfjB5llR2Ps0CWeikOtdR8+pAURAk0DoJC5/mm9kd+UgdnIy7d6HE4EAvlYhPhA==}
+    version: 6.2.5
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -6978,6 +6996,7 @@ packages:
 
   vitest@3.1.1:
     resolution: {integrity: sha512-kiZc/IYmKICeBAZr9DQ5rT7/6bD9G7uqQEki4fxazi1jdVl2mWGzedtBs5s6llz59yQhVb7FFY2MbHzHCnT79Q==}
+    version: 3.1.1
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
     peerDependencies:
@@ -7193,6 +7212,8 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
 snapshots:
+
+  '@adobe/css-tools@4.3.3': {}
 
   '@adobe/css-tools@4.4.2': {}
 
@@ -8399,7 +8420,7 @@ snapshots:
       glob: 10.4.2
       magic-string: 0.27.0
       react-docgen-typescript: 2.2.2(typescript@5.8.3)
-      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0)
+      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0)
     optionalDependencies:
       typescript: 5.8.3
 
@@ -9529,7 +9550,7 @@ snapshots:
       browser-assert: 1.2.1
       storybook: 8.6.12(prettier@3.5.3)
       ts-dedent: 2.2.0
-      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0)
+      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0)
 
   '@storybook/components@8.6.12(storybook@8.6.12(prettier@3.5.3))':
     dependencies:
@@ -9602,7 +9623,7 @@ snapshots:
       resolve: 1.22.10
       storybook: 8.6.12(prettier@3.5.3)
       tsconfig-paths: 4.2.0
-      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0)
+      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0)
     optionalDependencies:
       '@storybook/test': 8.6.12(storybook@8.6.12(prettier@3.5.3))
     transitivePeerDependencies:
@@ -10123,11 +10144,11 @@ snapshots:
       '@babel/plugin-transform-react-jsx-source': 7.25.9(@babel/core@7.26.10)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0)
+      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/browser@3.1.1(playwright@1.49.0)(vite@6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0))(vitest@3.1.1)':
+  '@vitest/browser@3.1.1(playwright@1.49.0)(vite@6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0))(vitest@3.1.1)':
     dependencies:
       '@testing-library/dom': 10.4.0
       '@testing-library/user-event': 14.6.1(@testing-library/dom@10.4.0)
@@ -10136,7 +10157,7 @@ snapshots:
       magic-string: 0.30.17
       sirv: 3.0.1
       tinyrainbow: 2.0.0
-      vitest: 3.1.1(@types/debug@4.1.12)(@types/node@20.17.30)(@vitest/browser@3.1.1)(jsdom@22.1.0)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0)
+      vitest: 3.1.1(@types/debug@4.1.12)(@types/node@20.17.30)(@vitest/browser@3.1.1)(jsdom@22.1.0)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0)
       ws: 8.18.1
     optionalDependencies:
       playwright: 1.49.0
@@ -10186,7 +10207,7 @@ snapshots:
       estree-walker: 3.0.3
       magic-string: 0.30.17
     optionalDependencies:
-      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0)
+      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0)
 
   '@vitest/pretty-format@2.0.5':
     dependencies:
@@ -11909,6 +11930,15 @@ snapshots:
       path-scurry: 1.11.1
 
   glob@10.4.2:
+    dependencies:
+      foreground-child: 3.3.1
+      jackspeak: 3.4.3
+      minimatch: 9.0.5
+      minipass: 7.1.2
+      package-json-from-dist: 1.0.1
+      path-scurry: 1.11.1
+
+  glob@10.4.5:
     dependencies:
       foreground-child: 3.3.1
       jackspeak: 3.4.3
@@ -14198,6 +14228,8 @@ snapshots:
     optionalDependencies:
       '@parcel/watcher': 2.5.1
 
+  sax@1.4.1: {}
+
   saxes@6.0.0:
     dependencies:
       xmlchars: 2.2.0
@@ -14592,14 +14624,22 @@ snapshots:
 
   stylis@4.2.0: {}
 
-  stylus-loader@7.1.3(stylus@0.0.1-security)(webpack@5.99.2):
+  stylus-loader@7.1.3(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(webpack@5.99.2):
     dependencies:
       fast-glob: 3.3.3
       normalize-path: 3.0.0
-      stylus: 0.0.1-security
+      stylus: https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9
       webpack: 5.99.2(webpack-cli@5.1.4)
 
-  stylus@0.0.1-security: {}
+  stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9:
+    dependencies:
+      '@adobe/css-tools': 4.3.3
+      debug: 4.4.0
+      glob: 10.4.5
+      sax: 1.4.1
+      source-map: 0.7.4
+    transitivePeerDependencies:
+      - supports-color
 
   supports-color@5.5.0:
     dependencies:
@@ -15038,13 +15078,13 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.2
 
-  vite-node@3.1.1(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0):
+  vite-node@3.1.1(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0):
     dependencies:
       cac: 6.7.14
       debug: 4.4.0
       es-module-lexer: 1.6.0
       pathe: 2.0.3
-      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0)
+      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -15061,20 +15101,20 @@ snapshots:
 
   vite-plugin-css-injected-by-js@3.5.2(vite@6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(terser@5.39.0)):
     dependencies:
-      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0)
+      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0)
 
   vite-plugin-svgr@4.3.0(rollup@4.39.0)(typescript@5.8.3)(vite@6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(terser@5.39.0)):
     dependencies:
       '@rollup/pluginutils': 5.1.4(rollup@4.39.0)
       '@svgr/core': 8.1.0(typescript@5.8.3)
       '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@5.8.3))
-      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0)
+      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0)
     transitivePeerDependencies:
       - rollup
       - supports-color
       - typescript
 
-  vite@6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0):
+  vite@6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0):
     dependencies:
       esbuild: 0.25.2
       postcss: 8.5.3
@@ -15084,10 +15124,10 @@ snapshots:
       fsevents: 2.3.3
       sass: 1.86.3
       sass-embedded: 1.87.0
-      stylus: 0.0.1-security
+      stylus: https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9
       terser: 5.39.0
 
-  vitest@3.1.1(@types/debug@4.1.12)(@types/node@20.17.30)(@vitest/browser@3.1.1)(jsdom@22.1.0)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0):
+  vitest@3.1.1(@types/debug@4.1.12)(@types/node@20.17.30)(@vitest/browser@3.1.1)(jsdom@22.1.0)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0):
     dependencies:
       '@vitest/expect': 3.1.1
       '@vitest/mocker': 3.1.1(vite@6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(terser@5.39.0))
@@ -15106,13 +15146,13 @@ snapshots:
       tinyexec: 0.3.2
       tinypool: 1.0.2
       tinyrainbow: 2.0.0
-      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0)
-      vite-node: 3.1.1(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0)
+      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0)
+      vite-node: 3.1.1(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/debug': 4.1.12
       '@types/node': 20.17.30
-      '@vitest/browser': 3.1.1(playwright@1.49.0)(vite@6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0))(vitest@3.1.1)
+      '@vitest/browser': 3.1.1(playwright@1.49.0)(vite@6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0))(vitest@3.1.1)
       jsdom: 22.1.0
     transitivePeerDependencies:
       - jiti
@@ -15147,8 +15187,8 @@ snapshots:
       tinyexec: 0.3.2
       tinypool: 1.0.2
       tinyrainbow: 2.0.0
-      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0)
-      vite-node: 3.1.1(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@0.0.1-security)(terser@5.39.0)
+      vite: 6.2.5(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0)
+      vite-node: 3.1.1(@types/node@20.17.30)(sass-embedded@1.87.0)(sass@1.86.3)(stylus@https://codeload.github.com/stylus/stylus/tar.gz/1086c6c1fbd7a7fd0ce9ad94f6cf4a62fc79a6e9)(terser@5.39.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/debug': 4.1.12
