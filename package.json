@@ -25,10 +25,10 @@
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vincentdchan/quill-next"
+    "url": "git+https://github.com/quill-next/quill-next"
   },
   "bugs": {
-    "url": "https://github.com/vincentdchan/quill-next/issues"
+    "url": "https://github.com/quill-next/quill-next/issues"
   },
   "scripts": {
     "build": "pnpm -r build",
