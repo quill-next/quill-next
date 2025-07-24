@@ -49,7 +49,7 @@
     "prettier": "^3.0.3",
     "source-map-loader": "^5.0.0",
     "style-loader": "^3.3.3",
-    "stylus": "0.0.1-security",
+    "stylus": "^0.62.0",
     "stylus-loader": "^7.1.3",
     "svgo": "^3.2.0",
     "terser-webpack-plugin": "^5.3.9",
