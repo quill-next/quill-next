@@ -4,7 +4,7 @@
   "author": "Vincent Chan <okcdz@diverse.space>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vincentdchan/quill-next",
+    "url": "git+https://github.com/quill-next/quill-next",
     "directory": "packages/quill-next-react"
   },
   "type": "module",

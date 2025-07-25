@@ -84,12 +84,12 @@ export const Basic: Story = {
   args: {
     defaultValue: new Delta().insert("Hello World\n")
       .insert("link", {
-        link: "https://github.com/vincentdchan/quill-next",
+        link: "https://github.com/quill-next/quill-next",
       })
       .insert(
         {
           image:
-            "https://github.com/vincentdchan/quill-next/raw/main/images/quill-next.png",
+            "https://github.com/quill-next/quill-next/raw/main/images/quill-next.png",
         },
         {
           naturalWidth: 800,

@@ -57,7 +57,7 @@ export const Next: Story = {
   ],
   args: {
     defaultValue: new Delta().insert("Hello World: ").insert("link", {
-      link: "https://github.com/vincentdchan/quill-next",
+      link: "https://github.com/quill-next/quill-next",
     }),
     config: {
       theme: 'next',
@@ -86,7 +86,7 @@ export const Next: Story = {
 //   ],
 //   args: {
 //     defaultValue: new Delta().insert("Hello World\n").insert({
-//       image: "https://github.com/vincentdchan/quill-next/raw/main/images/quill-next.png",
+//       image: "https://github.com/quill-next/quill-next/raw/main/images/quill-next.png",
 //     }),
 //     config: {
 //       theme: 'bubble',

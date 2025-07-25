@@ -7,14 +7,14 @@
 <p align="center">
   <a title="Documentation" href="https://quill-next.diverse.space/docs/quickstart"><strong>Documentation</strong></a>
   &#x2022;
-  <a title="Development" href="https://github.com/vincentdchan/quill-next/blob/main/.github/DEVELOPMENT.md"><strong>Development</strong></a>
+  <a title="Development" href="https://github.com/quill-next/quill-next/blob/main/.github/DEVELOPMENT.md"><strong>Development</strong></a>
   &#x2022;
-  <a title="Contributing" href="https://github.com/vincentdchan/quill-next/blob/main/.github/CONTRIBUTING.md"><strong>Contributing</strong></a>
+  <a title="Contributing" href="https://github.com/quill-next/quill-next/blob/main/.github/CONTRIBUTING.md"><strong>Contributing</strong></a>
   &#x2022;
   <a title="Interactive Playground" href="https://quill-next.diverse.space/playground/"><strong>Interactive Playground</strong></a>
 </p>
 <p align="center">
-  <a href="https://github.com/vincentdchan/quill-next/actions" title="Build Status"><img src="https://github.com/vincentdchan/quill-next/actions/workflows/main.yml/badge.svg" alt="Build Status"></a>
+  <a href="https://github.com/quill-next/quill-next/actions" title="Build Status"><img src="https://github.com/quill-next/quill-next/actions/workflows/main.yml/badge.svg" alt="Build Status"></a>
   <a href="https://npmjs.com/package/quill-next" title="Version"><img src="https://img.shields.io/npm/v/quill-next.svg" alt="Version"></a>
 </p>
 

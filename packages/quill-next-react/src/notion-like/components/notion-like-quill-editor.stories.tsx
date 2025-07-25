@@ -25,7 +25,7 @@ export const Basic: Story = {
       .insert("Heading 3\n", { header: 3 })
       .insert({
         image:
-          "https://github.com/vincentdchan/quill-next/raw/main/images/quill-next.png",
+          "https://github.com/quill-next/quill-next/raw/main/images/quill-next.png",
         attributes: {
           naturalWidth: 800,
           naturalHeight: 197,
@@ -55,7 +55,7 @@ export const DarkMode: Story = {
       .insert("Heading 3\n", { header: 3 })
       .insert({
         image:
-          "https://github.com/vincentdchan/quill-next/raw/main/images/quill-next.png",
+          "https://github.com/quill-next/quill-next/raw/main/images/quill-next.png",
         attributes: {
           naturalWidth: 800,
           naturalHeight: 197,
