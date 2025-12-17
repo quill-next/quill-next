@@ -44,7 +44,7 @@ describe('Quill', () => {
     });
 
     test('register(path, target)', () => {
-      class Counter {}
+      class Counter { }
       Quill.register('modules/counter', Counter);
 
       expect(Quill.imports).toHaveProperty('modules/counter', Counter);
@@ -67,7 +67,7 @@ describe('Quill', () => {
         static blotName = 'a-blot';
         static className = 'ql-a-blot';
       }
-      class AModule {}
+      class AModule { }
       Quill.register({
         'formats/a-blot': ABlot,
         'modules/a-module': AModule,
@@ -81,7 +81,7 @@ describe('Quill', () => {
   describe('destroy()', () => {
     test('destroy', () => {
       class MyModule {
-        destroy() {}
+        destroy() { }
       }
       Quill.register({
         'modules/my-module': MyModule,
@@ -605,9 +605,33 @@ describe('Quill', () => {
 
     test('works with range', () => {
       const quill = new Quill(createContainer('<h1>Welcome</h1>'));
-      expect(quill.getText({ index: 1, length: 2 })).toMatchInlineSnapshot(
-        '"el"',
-      );
+      expect(
+        quill.getSemanticHTML({ index: 1, length: 2 }),
+      ).toMatchInlineSnapshot('"el"');
+    });
+
+    test('works with only options', () => {
+      const quill = new Quill(createContainer('<h1>Welcome to quill</h1>'));
+      expect(quill.getSemanticHTML({ preserveWhitespace: true }))
+        .toMatchInlineSnapshot(`
+        "<h1>Welcome to quill</h1>"
+      `);
+    });
+
+    test('works with index and options', () => {
+      const quill = new Quill(createContainer('<h1>Welcome to quill</h1>'));
+      expect(quill.getSemanticHTML(0, { preserveWhitespace: true }))
+        .toMatchInlineSnapshot(`
+        "<h1>Welcome to quill</h1>"
+      `);
+    });
+
+    test('works with index, length and options', () => {
+      const quill = new Quill(createContainer('<h1>Welcome to quill</h1>'));
+      expect(quill.getSemanticHTML(0, 10, { preserveWhitespace: true }))
+        .toMatchInlineSnapshot(`
+        "Welcome to"
+      `);
     });
   });
 
@@ -864,7 +888,7 @@ describe('Quill', () => {
     });
 
     test('toolbar custom handler, default container', () => {
-      const handler = () => {}; // eslint-disable-line func-style
+      const handler = () => { }; // eslint-disable-line func-style
       const config = expandConfig(`#${testContainerId}`, {
         modules: {
           toolbar: {
@@ -1232,7 +1256,7 @@ describe('Quill', () => {
         observer.observe(element);
         // Firefox doesn't call IntersectionObserver callback unless
         // there are rafs.
-        requestAnimationFrame(() => {});
+        requestAnimationFrame(() => { });
       });
     };
 
