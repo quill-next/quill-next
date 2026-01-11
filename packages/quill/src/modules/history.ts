@@ -1,5 +1,5 @@
 import { Scope } from 'parchment';
-import type Delta from 'quill-delta-es';
+import type Delta from '@quill-next/delta-es';
 import Module from '../core/module.js';
 import Quill from '../core/quill.js';
 import type Scroll from '../blots/scroll.js';

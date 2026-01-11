@@ -1,4 +1,4 @@
-import Delta from 'quill-delta-es';
+import Delta from '@quill-next/delta-es';
 import Editor from '../../../src/core/editor.js';
 import { describe, test, expect } from 'vitest';
 import {

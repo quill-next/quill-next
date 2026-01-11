@@ -19,7 +19,7 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     value:
-      "https://github.com/vincentdchan/quill-next/raw/main/images/quill-next.png",
+      "https://github.com/quill-next/quill-next/raw/main/images/quill-next.png",
     attributes: {
       naturalWidth: 800,
       naturalHeight: 197,

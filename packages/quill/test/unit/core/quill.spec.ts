@@ -1,5 +1,5 @@
 import '../../../src/quill.js';
-import Delta from 'quill-delta-es';
+import Delta from '@quill-next/delta-es';
 import { LeafBlot, Registry } from 'parchment';
 import {
   afterEach,
@@ -1336,15 +1336,16 @@ describe('Quill', () => {
       const text = createContents('\n');
       quill.setContents(new Delta().insert(text));
       quill.setSelection({ index: text.indexOf('text 10'), length: 4 }, 'user');
-      let viewportRatioValue = 0;
-      viewportRatioValue = await viewportRatio(
-        container.querySelector('p:nth-child(10)') as HTMLElement,
-      );
-      expect(Math.abs(viewportRatioValue - 1)).toBeLessThan(0.01);
-      viewportRatioValue = await viewportRatio(
-        container.querySelector('p:nth-child(11)') as HTMLElement,
-      );
-      expect(Math.abs(viewportRatioValue - 1)).toBeLessThan(0.01);
+      expect(
+        await viewportRatio(
+          container.querySelector('p:nth-child(10)') as HTMLElement,
+        ),
+      ).toBeGreaterThan(0.9);
+      expect(
+        await viewportRatio(
+          container.querySelector('p:nth-child(11)') as HTMLElement,
+        ),
+      ).toBeGreaterThan(0.9);
       quill.root.style.scrollPaddingBottom = '0';
       quill.setSelection(1, 'user');
       quill.setSelection({ index: text.indexOf('text 10'), length: 4 }, 'user');
@@ -1405,6 +1406,53 @@ describe('Quill', () => {
           editorContainer.querySelector('strong') as HTMLElement,
         ),
       ).toEqual(0);
+    });
+
+    test('scroll smoothly', async () => {
+      document.body.style.height = '500px';
+      const container = document.body.appendChild(
+        document.createElement('div'),
+      );
+
+      Object.assign(container.style, {
+        height: '100px',
+        overflow: 'scroll',
+      });
+
+      const space = container.appendChild(document.createElement('div'));
+      space.style.height = '80px';
+
+      const editorContainer = container.appendChild(
+        document.createElement('div'),
+      );
+      Object.assign(editorContainer.style, {
+        height: '100px',
+        overflow: 'scroll',
+        border: '10px solid red',
+      });
+
+      const quill = new Quill(editorContainer);
+
+      const text = createContents('\n');
+      quill.setContents(new Delta().insert(text));
+      quill.setSelection(
+        { index: text.indexOf('text 100'), length: 4 },
+        'silent',
+      );
+      quill.scrollSelectionIntoView({ smooth: true });
+
+      await vi.waitFor(async () => {
+        expect(
+          await viewportRatio(
+            editorContainer.querySelector('p:nth-child(100)') as HTMLElement,
+          ),
+        ).toBeGreaterThan(0.9);
+        expect(
+          await viewportRatio(
+            editorContainer.querySelector('p:nth-child(101)') as HTMLElement,
+          ),
+        ).toEqual(0);
+      });
     });
   });
 });

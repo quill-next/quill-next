@@ -72,9 +72,9 @@ const content = () => {
                 </p>
                 <p><br></p>
                 <ul>
-                  <li><a href="https://github.com/vincentdchan/quill-next?tab=readme-ov-file#key-differences-with-quill">Check the differences</a></li>
+                  <li><a href="https://github.com/quill-next/quill-next?tab=readme-ov-file#key-differences-with-quill">Check the differences</a></li>
                   <li><a href="https://quill-next.diverse.space/docs/quickstart">Documentation</a></li>
-                  <li><a href="https://github.com/vincentdchan/quill-next">Github</a></li>
+                  <li><a href="https://github.com/quill-next/quill-next">Github</a></li>
                 </ul>
                 <p><br></p>
                 <h2>Architectural Diagram</h2>
@@ -247,7 +247,7 @@ const IndexPage = () => {
             <div className="buttons-container">
               <MainButton
                 variant='white'
-                href="https://github.com/vincentdchan/quill-next"
+                href="https://github.com/quill-next/quill-next"
                 target="_blank"
               >
                 <OctocatIcon />

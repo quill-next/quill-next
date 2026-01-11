@@ -2,4 +2,6 @@
 /dist
 /node_modules
 
+/dev/dist
+
 !.eslintrc.cjs

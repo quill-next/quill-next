@@ -117,7 +117,7 @@ const Header = () => {
           <MainNav className={styles.mainNav} />
           <nav className={styles.secondaryNav}>
             <a
-              href="https://github.com/vincentdchan/quill-next"
+              href="https://github.com/quill-next/quill-next"
               target="_blank"
               title="Edit on GitHub"
             >
