@@ -1,5 +1,5 @@
 import QuillEditor, {
-	type QuillEditorProps,
+  type QuillEditorProps,
 } from './components/quill-editor.vue'
 import { useQuill } from './composables/use-quill'
 

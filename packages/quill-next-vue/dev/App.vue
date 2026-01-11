@@ -1,11 +1,11 @@
 <template>
-	<QuillEditor v-model="value" />
-	<hr />
-	<pre>
-		{{ { value } }}
-	</pre
-	>
-	<button @click="onAdd('popa')">Add popa</button>
+  <QuillEditor v-model="value" />
+  <hr />
+  <pre>
+    {{ { value } }}
+  </pre
+  >
+  <button @click="onAdd('popa')">Add popa</button>
 </template>
 
 <script setup lang="ts">
@@ -16,7 +16,7 @@ import { Delta } from 'quill-next'
 const value = ref<Delta>(new Delta().insert('Hello, Quill!'))
 
 function onAdd(text: string) {
-	value.value = value.value.insert(text)
+  value.value = value.value.insert(text)
 }
 </script>
 

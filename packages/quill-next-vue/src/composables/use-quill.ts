@@ -6,27 +6,27 @@ import { makeQuillWithBlots } from '../init'
 import { type BlotConstructor } from 'parchment'
 
 type UseQuillReturn = {
-	quill: Readonly<ShallowRef<Quill | null>>
+  quill: Readonly<ShallowRef<Quill | null>>
 }
 
 function useQuill(
-	templateRef: ReturnType<typeof useTemplateRef<HTMLDivElement>>,
-	config: QuillOptions = {},
-	blots?: BlotConstructor[]
+  templateRef: ReturnType<typeof useTemplateRef<HTMLDivElement>>,
+  config: QuillOptions = {},
+  blots?: BlotConstructor[]
 ): UseQuillReturn {
-	const quill = shallowRef<Quill | null>(null)
+  const quill = shallowRef<Quill | null>(null)
 
-	onMounted(() => {
-		quill.value = makeQuillWithBlots(
-			templateRef.value,
-			merge({}, defaultConfig, config),
-			blots
-		)
-	})
+  onMounted(() => {
+    quill.value = makeQuillWithBlots(
+      templateRef.value,
+      merge({}, defaultConfig, config),
+      blots
+    )
+  })
 
-	return {
-		quill,
-	}
+  return {
+    quill,
+  }
 }
 
 export { useQuill, type UseQuillReturn }
