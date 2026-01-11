@@ -11,21 +11,21 @@ This package requires Vue 3.4+ and Quill Next as peer dependencies. It is design
 ## Installation
 
 ```bash
-npm install quill-next-vue
+npm install @quill-next/vue
 # or
-yarn add quill-next-vue
+yarn add @quill-next/vue
 #or
-pnpm add quill-next-vue
+pnpm add @quill-next/vue
 ```
 
 You can install the package using npm or yarn:
 
 ```bash
-npm install quill-next-vue
+npm install @quill-next/vue
 # or
-yarn add quill-next-vue
+yarn add @quill-next/vue
 #or
-pnpm add quill-next-vue
+pnpm add @quill-next/vue
 ```
 
 **Note**: This package assumes that `quill-next` and `vue` (3.4+) are already installed. It also requires Quill as a peer dependency. You might need to install it separately if you haven't already:
