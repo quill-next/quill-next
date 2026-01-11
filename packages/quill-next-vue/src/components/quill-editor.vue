@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { BlotConstructor } from 'parchment'
-import { useTemplateRef, watch, watchEffect } from 'vue'
+import { useTemplateRef, watch, watchEffect, onUnmounted } from 'vue'
 import { Delta, EmitterSource, QuillOptions, Range } from 'quill-next'
 import Quill from 'quill-next'
 import { useQuill } from '../composables/use-quill'
@@ -69,30 +69,37 @@ watch(
   }
 )
 
+function onReady(): void {
+  emits('ready', quill.value)
+
+  if (model.value) {
+    quill.value.setContents(model.value)
+  }
+}
+
+function onTextChange(delta: Delta, oldContent: Delta, source: EmitterSource): void {
+  model.value = quill.value.getContents()
+  emits('text-change', delta, oldContent, source)
+}
+
+function onSelectionChange(range: Range, oldRange: Range, source: EmitterSource): void {
+  emits('selection-change', range, oldRange, source)
+}
+
 function initQuill() {
   initialized = true
 
-  quill.value.on('ready', () => {
-    emits('ready', quill.value)
-
-    if (model.value) {
-      quill.value.setContents(model.value)
-    }
-  })
-
-  quill.value.on(
-    'text-change',
-    (delta: Delta, oldContent: Delta, source: EmitterSource) => {
-      model.value = quill.value.getContents()
-      emits('text-change', delta, oldContent, source)
-    }
-  )
-
-  quill.value.on(
-    'selection-change',
-    (range: Range, oldRange: Range, source: EmitterSource) => {
-      emits('selection-change', range, oldRange, source)
-    }
-  )
+  quill.value.on('ready', onReady)
+  quill.value.on('text-change', onTextChange)
+  quill.value.on('selection-change', onSelectionChange)
 }
+
+onUnmounted(() => {
+  if (quill.value) {
+    quill.value.off('ready', onReady)
+    quill.value.off('text-change', onTextChange)
+    quill.value.off('selection-change', onSelectionChange)
+    quill.value.destroy();
+  }
+})
 </script>
