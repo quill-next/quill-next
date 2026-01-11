@@ -112,6 +112,7 @@ npm install quill-next
 
 - **[Quill](./packages/quill/):** The original Quill editor with bug fixes and improvements.
 - **[Quill Next React](./packages/quill-next-react/)**: The React wrapper for Quill Next.
+- **[Quill Next Vue](./packages/quill-next-vue/)**: The Vue 3 wrapper for Quill Next.
 - **[Website](./packages/website/)**: The website of Quill Next, including demo and documentation.
 
 ## License
