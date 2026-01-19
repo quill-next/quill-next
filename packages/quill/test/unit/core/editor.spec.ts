@@ -1412,6 +1412,18 @@ describe('Editor', () => {
       expect(editor.getHTML(0, 5)).toEqual('<ul><li>Test</li></ul>');
     });
 
+    test('option preserveWhitespace is disabled (DEFAULT)', () => {
+      const editor = createEditor('<p>This is Quill</p>');
+      expect(editor.getHTML(0, 14)).toEqual('<p>This&nbsp;is&nbsp;Quill</p>');
+    });
+
+    test('option preserveWhitespace is enabled', () => {
+      const editor = createEditor('<p>This is Quill</p>');
+      expect(editor.getHTML(0, 14, { preserveWhitespace: true })).toEqual(
+        '<p>This is Quill</p>',
+      );
+    });
+
     test('across lines', () => {
       const editor = createEditor(
         '<h1 class="ql-align-center">Header</h1><p>Text</p><blockquote>Quote</blockquote>',
