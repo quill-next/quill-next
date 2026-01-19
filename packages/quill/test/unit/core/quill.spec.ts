@@ -605,9 +605,33 @@ describe('Quill', () => {
 
     test('works with range', () => {
       const quill = new Quill(createContainer('<h1>Welcome</h1>'));
-      expect(quill.getText({ index: 1, length: 2 })).toMatchInlineSnapshot(
-        '"el"',
-      );
+      expect(
+        quill.getSemanticHTML({ index: 1, length: 2 }),
+      ).toMatchInlineSnapshot('"el"');
+    });
+
+    test('works with only options', () => {
+      const quill = new Quill(createContainer('<h1>Welcome to quill</h1>'));
+      expect(quill.getSemanticHTML({ preserveWhitespace: true }))
+        .toMatchInlineSnapshot(`
+        "<h1>Welcome to quill</h1>"
+      `);
+    });
+
+    test('works with index and options', () => {
+      const quill = new Quill(createContainer('<h1>Welcome to quill</h1>'));
+      expect(quill.getSemanticHTML(0, { preserveWhitespace: true }))
+        .toMatchInlineSnapshot(`
+        "<h1>Welcome to quill</h1>"
+      `);
+    });
+
+    test('works with index, length and options', () => {
+      const quill = new Quill(createContainer('<h1>Welcome to quill</h1>'));
+      expect(quill.getSemanticHTML(0, 10, { preserveWhitespace: true }))
+        .toMatchInlineSnapshot(`
+        "Welcome to"
+      `);
     });
   });
 
@@ -1149,7 +1173,6 @@ describe('Quill', () => {
     });
 
     test('(range:range, dummy:number)', () => {
-      // @ts-expect-error
       const [index, length, formats, source] = overload(new Range(10, 1), 0);
       expect(index).toBe(10);
       expect(length).toBe(1);
@@ -1158,7 +1181,6 @@ describe('Quill', () => {
     });
 
     test('(range:range, dummy:number, format:string, value:boolean)', () => {
-      // @ts-expect-error
       const [index, length, formats, source] = overload(
         new Range(10, 1),
         0,
@@ -1172,7 +1194,6 @@ describe('Quill', () => {
     });
 
     test('(range:range, dummy:number, format:object, source:string)', () => {
-      // @ts-expect-error
       const [index, length, formats, source] = overload(
         new Range(10, 1),
         0,
