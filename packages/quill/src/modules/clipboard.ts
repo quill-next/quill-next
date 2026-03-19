@@ -29,14 +29,17 @@ const debug = logger('quill:clipboard');
 type Selector = string | Node['TEXT_NODE'] | Node['ELEMENT_NODE'];
 type Matcher = (node: Node, delta: Delta, scroll: ScrollBlot) => Delta;
 
+const TEXT_NODE = 3;
+const ELEMENT_NODE = 1;
+
 const CLIPBOARD_CONFIG: [Selector, Matcher][] = [
-  [Node.TEXT_NODE, matchText],
-  [Node.TEXT_NODE, matchNewline],
+  [TEXT_NODE, matchText],
+  [TEXT_NODE, matchNewline],
   ['br', matchBreak],
-  [Node.ELEMENT_NODE, matchNewline],
-  [Node.ELEMENT_NODE, matchBlot],
-  [Node.ELEMENT_NODE, matchAttributor],
-  [Node.ELEMENT_NODE, matchStyles],
+  [ELEMENT_NODE, matchNewline],
+  [ELEMENT_NODE, matchBlot],
+  [ELEMENT_NODE, matchAttributor],
+  [ELEMENT_NODE, matchStyles],
   ['li', matchIndent],
   ['ol, ul', matchList],
   ['pre', matchCodeBlock],
