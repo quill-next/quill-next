@@ -5,12 +5,19 @@ import logger from './logger.js';
 const debug = logger('quill:events');
 const EVENTS = ['selectionchange', 'mousedown', 'mouseup', 'click'];
 
+// Documents where we've already registered Quill's global event listeners.
+// WeakSet so entries are dropped when a document is GC'd (e.g. JSDOM teardown).
 const registeredDocuments = new WeakSet<Document>();
 
+// Registers global event listeners on the given document if not already present.
+// Called lazily from the Quill constructor to avoid touching `document` at import
+// time, which would crash in non-browser environments (Node, SSR).
 function ensureDocumentListeners(doc: Document) {
   if (registeredDocuments.has(doc)) return;
   registeredDocuments.add(doc);
 
+  // Queries are scoped to `doc` rather than the global `document` so
+  // listeners stay correct in multi-document scenarios (iframes, JSDOM).
   EVENTS.forEach((eventName) => {
     doc.addEventListener(eventName, (...args) => {
       Array.from(doc.querySelectorAll('.ql-container')).forEach((node) => {
