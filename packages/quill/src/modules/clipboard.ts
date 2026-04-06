@@ -32,8 +32,8 @@ type Matcher = (node: Node, delta: Delta, scroll: ScrollBlot) => Delta;
 // Constants from the browser's global "Node" object.
 // Strong types ensure the constants are accurate,
 // while avoiding an import time dependency on browser provided global.
-// Avoiding this dependency allows this code to be imported more easily in non-browser enforcements like tests and like SSR.
-const TEXT_NODE:  typeof Node.TEXT_NODE = 3;
+// Avoiding this dependency allows this code to be imported more easily in non-browser environments such as tests and SSR.
+const TEXT_NODE: typeof Node.TEXT_NODE = 3;
 const ELEMENT_NODE: typeof Node.ELEMENT_NODE = 1;
 
 const CLIPBOARD_CONFIG: [Selector, Matcher][] = [
