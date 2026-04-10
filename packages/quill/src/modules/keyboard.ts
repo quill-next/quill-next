@@ -11,7 +11,10 @@ import { SOFT_BREAK_CHARACTER } from '../blots/soft-break.js';
 
 const debug = logger('quill:keyboard');
 
-const SHORTKEY = /Mac/i.test(navigator.platform) ? 'metaKey' : 'ctrlKey';
+const SHORTKEY =
+  typeof navigator !== 'undefined' && /Mac/i.test(navigator.platform)
+    ? 'metaKey'
+    : 'ctrlKey';
 
 export interface Context {
   collapsed: boolean;
