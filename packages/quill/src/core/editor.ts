@@ -400,13 +400,22 @@ function convertHTML(
     if (isRoot || blot.statics.blotName === 'list') {
       return parts.join('');
     }
-    const { outerHTML, innerHTML } = blot.domNode as Element;
-    const [start, end] = outerHTML.split(`>${innerHTML}<`);
-    // TODO cleanup
-    if (start === '<table') {
-      return `<table style="border: 1px solid #000;">${parts.join('')}<${end}`;
+
+    const element = blot.domNode as Element;
+    const tagName = element.tagName.toLowerCase();
+    const attributes = Array.from(element.attributes)
+      .map((attr) => {
+        const safeName = attr.name.replace(/[^a-zA-Z0-9-_]/g, '');
+        return `${safeName}="${escapeText(attr.value)}"`;
+      })
+      .join(' ');
+
+    if (tagName === 'table') {
+      return `<table style="border: 1px solid #000;">${parts.join('')}</table>`;
     }
-    return `${start}>${parts.join('')}<${end}`;
+
+    const openTag = attributes ? `<${tagName} ${attributes}>` : `<${tagName}>`;
+    return `${openTag}${parts.join('')}</${tagName}>`;
   }
   return blot.domNode instanceof Element ? blot.domNode.outerHTML : '';
 }
