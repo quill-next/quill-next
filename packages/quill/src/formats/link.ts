@@ -33,7 +33,8 @@ class Link extends Inline {
   }
 
   html(index: number, length: number) {
-    const href = Link.sanitize(this.domNode.getAttribute('href') || '');
+    const LinkClass = this.constructor as typeof Link;
+    const href = LinkClass.sanitize(this.domNode.getAttribute('href') || '');
     const rel = this.domNode.getAttribute('rel');
     const target = this.domNode.getAttribute('target');
 

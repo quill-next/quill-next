@@ -52,7 +52,7 @@ class Video extends BlockEmbed {
   }
 
   html() {
-    const video = Video.value(this.domNode) || '';
+    const video = Video.sanitize(Video.value(this.domNode) || '');
     return `<a href="${escapeText(video)}">${escapeText(video)}</a>`;
   }
 }
