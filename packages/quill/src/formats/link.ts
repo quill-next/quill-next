@@ -1,4 +1,5 @@
 import Inline from '../blots/inline.js';
+import { escapeText } from '../blots/text.js';
 
 class Link extends Inline {
   static blotName = 'link';
@@ -29,6 +30,34 @@ class Link extends Inline {
       // @ts-expect-error
       this.domNode.setAttribute('href', this.constructor.sanitize(value));
     }
+  }
+
+  html(index: number, length: number) {
+    const LinkClass = this.constructor as typeof Link;
+    const href = LinkClass.sanitize(this.domNode.getAttribute('href') || '');
+    const rel = this.domNode.getAttribute('rel');
+    const target = this.domNode.getAttribute('target');
+
+    let attrs = `href="${escapeText(href)}"`;
+    if (rel) attrs += ` rel="${escapeText(rel)}"`;
+    if (target) attrs += ` target="${escapeText(target)}"`;
+
+    const parts: string[] = [];
+    this.children.forEachAt(index, length, (child, offset, childLength) => {
+      if ('html' in child && typeof child.html === 'function') {
+        parts.push(child.html(offset, childLength));
+      } else if ('value' in child && typeof child.value === 'function') {
+        parts.push(
+          escapeText(
+            (child.value() as string).slice(offset, offset + childLength),
+          ).replaceAll(' ', '&nbsp;'),
+        );
+      } else {
+        parts.push((child.domNode as Element).outerHTML);
+      }
+    });
+
+    return `<a ${attrs}>${parts.join('')}</a>`;
   }
 }
 
