@@ -39,7 +39,7 @@ Project Goals
 - **Delta ES**: Quill Next uses [Delta ES](https://github.com/vincentdchan/delta-es) as the Delta data structure, which is a fork of [Delta](https://github.com/quilljs/delta) with ES module. _You should not aware of this, unless you are a core developer of Quill_.
   - Use `lodash-es` instead of `lodash` internally.
   - This helps to reduce the bundle size. And be friendly to tree shaking.
-- **Destory method**: Quill Next adds a `destroy` method to the Quill object, which is used to destroy the editor and destroy all the modules. This helps to avoid memory leaks.
+- **Destroy method**: Quill Next adds a `destroy` method to the Quill object, which is used to destroy the editor and destroy all the modules. This helps to avoid memory leaks.
 
 ```ts
 const quill = new Quill('#editor');
