@@ -60,6 +60,28 @@ function App() {
 
 ```
 
+### Use custom styles without a theme
+
+Pass `theme: null` to use Quill's core theme without loading the Snow, Bubble,
+or Next theme stylesheet. This is useful when the application provides all
+editor styles itself.
+
+```tsx
+import QuillEditor from 'quill-next-react';
+import 'quill-next/dist/quill.core.css';
+import './editor.scss';
+
+function App() {
+  return (
+    <QuillEditor
+      config={{ theme: null }}
+    />
+  );
+}
+```
+
+The core stylesheet is optional if the application supplies equivalent styles.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit issues or pull requests.

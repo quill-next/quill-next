@@ -37,7 +37,7 @@ Parchment.ParentBlot.uiClass = 'ql-ui';
  * Options for initializing a Quill instance
  */
 export interface QuillOptions {
-  theme?: string;
+  theme?: string | null;
   debug?: DebugLevel | boolean;
   registry?: Parchment.Registry;
   /**

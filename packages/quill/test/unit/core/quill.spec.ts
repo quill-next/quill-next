@@ -753,7 +753,6 @@ describe('Quill', () => {
 
       test('for null', () => {
         const config = expandConfig(`#${testContainerId}`, {
-          // @ts-expect-error
           theme: null,
         });
         expect(config.theme).toEqual(Theme);
