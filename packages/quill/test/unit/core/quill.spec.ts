@@ -605,33 +605,9 @@ describe('Quill', () => {
 
     test('works with range', () => {
       const quill = new Quill(createContainer('<h1>Welcome</h1>'));
-      expect(
-        quill.getSemanticHTML({ index: 1, length: 2 }),
-      ).toMatchInlineSnapshot('"el"');
-    });
-
-    test('works with only options', () => {
-      const quill = new Quill(createContainer('<h1>Welcome to quill</h1>'));
-      expect(quill.getSemanticHTML({ preserveWhitespace: true }))
-        .toMatchInlineSnapshot(`
-        "<h1>Welcome to quill</h1>"
-      `);
-    });
-
-    test('works with index and options', () => {
-      const quill = new Quill(createContainer('<h1>Welcome to quill</h1>'));
-      expect(quill.getSemanticHTML(0, { preserveWhitespace: true }))
-        .toMatchInlineSnapshot(`
-        "<h1>Welcome to quill</h1>"
-      `);
-    });
-
-    test('works with index, length and options', () => {
-      const quill = new Quill(createContainer('<h1>Welcome to quill</h1>'));
-      expect(quill.getSemanticHTML(0, 10, { preserveWhitespace: true }))
-        .toMatchInlineSnapshot(`
-        "Welcome to"
-      `);
+      expect(quill.getText({ index: 1, length: 2 })).toMatchInlineSnapshot(
+        '"el"',
+      );
     });
   });
 
@@ -657,11 +633,61 @@ describe('Quill', () => {
       `);
     });
 
+    test('keeps the existing space conversion by default', () => {
+      const quill = new Quill(createContainer('<h1>Welcome home</h1>'));
+      expect(quill.getSemanticHTML()).toBe('<h1>Welcome&nbsp;home</h1>');
+    });
+
     test('works with range', () => {
       const quill = new Quill(createContainer('<h1>Welcome</h1>'));
-      expect(quill.getText({ index: 1, length: 2 })).toMatchInlineSnapshot(
-        '"el"',
+      expect(
+        quill.getSemanticHTML({ index: 1, length: 2 }),
+      ).toMatchInlineSnapshot('"el"');
+    });
+
+    test('works with only options', () => {
+      const quill = new Quill(createContainer('<h1>Welcome to quill</h1>'));
+      expect(quill.getSemanticHTML({ preserveWhitespace: true })).toBe(
+        '<h1>Welcome to quill</h1>',
       );
+    });
+
+    test('works with range and options', () => {
+      const quill = new Quill(createContainer('<h1>Welcome to quill</h1>'));
+      expect(
+        quill.getSemanticHTML(
+          { index: 0, length: 10 },
+          { preserveWhitespace: true },
+        ),
+      ).toBe('Welcome to');
+    });
+
+    test('works with index and options', () => {
+      const quill = new Quill(createContainer('<h1>Welcome to quill</h1>'));
+      expect(quill.getSemanticHTML(0, { preserveWhitespace: true })).toBe(
+        '<h1>Welcome to quill</h1>',
+      );
+    });
+
+    test('works with index, length and options', () => {
+      const quill = new Quill(createContainer('<h1>Welcome to quill</h1>'));
+      expect(quill.getSemanticHTML(0, 10, { preserveWhitespace: true })).toBe(
+        'Welcome to',
+      );
+    });
+
+    test('works with an omitted index and explicit length', () => {
+      const quill = new Quill(createContainer('<h1>Welcome to quill</h1>'));
+      expect(
+        quill.getSemanticHTML(undefined, 10, { preserveWhitespace: true }),
+      ).toBe('Welcome to');
+    });
+
+    test('works with an omitted length and explicit options', () => {
+      const quill = new Quill(createContainer('<h1>Welcome to quill</h1>'));
+      expect(
+        quill.getSemanticHTML(0, undefined, { preserveWhitespace: true }),
+      ).toBe('<h1>Welcome to quill</h1>');
     });
   });
 
@@ -1172,6 +1198,7 @@ describe('Quill', () => {
     });
 
     test('(range:range, dummy:number)', () => {
+      // @ts-expect-error
       const [index, length, formats, source] = overload(new Range(10, 1), 0);
       expect(index).toBe(10);
       expect(length).toBe(1);
@@ -1180,6 +1207,7 @@ describe('Quill', () => {
     });
 
     test('(range:range, dummy:number, format:string, value:boolean)', () => {
+      // @ts-expect-error
       const [index, length, formats, source] = overload(
         new Range(10, 1),
         0,
@@ -1193,6 +1221,7 @@ describe('Quill', () => {
     });
 
     test('(range:range, dummy:number, format:object, source:string)', () => {
+      // @ts-expect-error
       const [index, length, formats, source] = overload(
         new Range(10, 1),
         0,

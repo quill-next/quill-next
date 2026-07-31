@@ -35,17 +35,6 @@ export class Range {
   ) {}
 }
 
-export function isRange(value: any): value is Range {
-  return (
-    value &&
-    typeof value === 'object' &&
-    'index' in value &&
-    typeof value.index === 'number' &&
-    'length' in value &&
-    typeof value.length === 'number'
-  );
-}
-
 class Selection {
   scroll: Scroll;
   emitter: Emitter;

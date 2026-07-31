@@ -16,7 +16,7 @@ import instances from './instances.js';
 import logger from './logger.js';
 import type { DebugLevel } from './logger.js';
 import Module from './module.js';
-import Selection, { isRange, Range } from './selection.js';
+import Selection, { Range } from './selection.js';
 import type { Bounds } from './selection.js';
 import Composition from './composition.js';
 import Theme from './theme.js';
@@ -309,6 +309,7 @@ class Quill {
     length?: number | EmitterSource,
     source?: EmitterSource,
   ): Delta {
+    // @ts-expect-error
     [index, length, , source] = overload(index, length, source);
     return modify.call(
       this,
@@ -399,6 +400,7 @@ class Quill {
     [index, length, formats, source] = overload(
       index,
       length,
+      // @ts-expect-error
       name,
       value,
       source,
@@ -443,6 +445,7 @@ class Quill {
     let formats: Record<string, unknown>;
     // eslint-disable-next-line prefer-const
     [index, length, formats, source] = overload(
+      // @ts-expect-error
       index,
       length,
       name,
@@ -541,9 +544,10 @@ class Quill {
   getSemanticHTML(options?: SemanticHTMLOptions): string;
   getSemanticHTML(range: Range, options?: SemanticHTMLOptions): string;
   getSemanticHTML(index: number, options?: SemanticHTMLOptions): string;
+  getSemanticHTML(index?: number, length?: number): string;
   getSemanticHTML(
-    index: number,
-    length: number,
+    index: number | undefined,
+    length: number | undefined,
     options?: SemanticHTMLOptions,
   ): string;
   getSemanticHTML(
@@ -551,32 +555,41 @@ class Quill {
     lengthOrOptions?: number | SemanticHTMLOptions,
     options?: SemanticHTMLOptions,
   ) {
-    let finalIndex: number | Range = 0;
-    let finalLength: number | undefined = undefined;
-    let finalOptions: SemanticHTMLOptions = {};
-
     if (indexOrRangeOrOptions === undefined) {
-      finalIndex = 0;
-      finalLength = this.getLength() - finalIndex;
-    } else if (isRange(indexOrRangeOrOptions)) {
-      finalIndex = indexOrRangeOrOptions as Range;
-      finalOptions = (lengthOrOptions as SemanticHTMLOptions) ?? {};
-    } else if (typeof indexOrRangeOrOptions === 'number') {
-      finalIndex = indexOrRangeOrOptions;
-      if (typeof lengthOrOptions === 'number') {
-        finalLength = lengthOrOptions;
-        finalOptions = options ?? {};
-      } else {
-        finalLength = this.getLength() - finalIndex;
-        finalOptions = (lengthOrOptions as SemanticHTMLOptions) ?? {};
-      }
-    } else {
-      finalIndex = 0;
-      finalLength = this.getLength() - finalIndex;
-      finalOptions = indexOrRangeOrOptions;
+      const length =
+        typeof lengthOrOptions === 'number'
+          ? lengthOrOptions
+          : this.getLength();
+      const finalOptions =
+        options ??
+        (typeof lengthOrOptions === 'number' ? undefined : lengthOrOptions);
+      return this.editor.getHTML(0, length, finalOptions);
     }
-    [finalIndex, finalLength] = overload(finalIndex, finalLength);
-    return this.editor.getHTML(finalIndex, finalLength, finalOptions);
+
+    if (typeof indexOrRangeOrOptions === 'number') {
+      const index = indexOrRangeOrOptions;
+      const length =
+        typeof lengthOrOptions === 'number'
+          ? lengthOrOptions
+          : this.getLength() - index;
+      const finalOptions =
+        options ??
+        (typeof lengthOrOptions === 'number' ? undefined : lengthOrOptions);
+      return this.editor.getHTML(index, length, finalOptions);
+    }
+
+    if (isRange(indexOrRangeOrOptions)) {
+      const finalOptions =
+        options ??
+        (typeof lengthOrOptions === 'number' ? undefined : lengthOrOptions);
+      return this.editor.getHTML(
+        indexOrRangeOrOptions.index,
+        indexOrRangeOrOptions.length,
+        finalOptions,
+      );
+    }
+
+    return this.editor.getHTML(0, this.getLength(), indexOrRangeOrOptions);
   }
 
   getText(range?: Range): string;
@@ -585,6 +598,7 @@ class Quill {
     if (typeof index === 'number') {
       length = length ?? this.getLength() - index;
     }
+    // @ts-expect-error
     [index, length] = overload(index, length);
     return this.editor.getText(index, length);
   }
@@ -631,6 +645,8 @@ class Quill {
     source?: EmitterSource,
   ): Delta {
     let formats: Record<string, unknown>;
+    // eslint-disable-next-line prefer-const
+    // @ts-expect-error
     [index, , formats, source] = overload(index, 0, name, value, source);
     return modify.call(
       this,
@@ -756,6 +772,7 @@ class Quill {
       // @ts-expect-error https://github.com/microsoft/TypeScript/issues/22609
       this.selection.setRange(null, length || Quill.sources.API);
     } else {
+      // @ts-expect-error
       [index, length, , source] = overload(index, length, source);
       this.selection.setRange(new Range(Math.max(0, index), length), source);
       if (source !== Emitter.sources.SILENT) {
@@ -987,13 +1004,6 @@ function overload(
   name?: string | unknown | Record<string, unknown> | EmitterSource,
   value?: unknown | EmitterSource,
   source?: EmitterSource,
-): NormalizedIndexLength;
-function overload(
-  index: Range | number,
-  length?: number | string | Record<string, unknown> | EmitterSource,
-  name?: string | unknown | Record<string, unknown> | EmitterSource,
-  value?: unknown | EmitterSource,
-  source?: EmitterSource,
 ): NormalizedIndexLength {
   let formats: Record<string, unknown> = {};
   // @ts-expect-error
@@ -1079,7 +1089,18 @@ function shiftRange(
   return new Range(start, end - start);
 }
 
-export type { Bounds, DebugLevel, EmitterSource };
+function isRange(value: unknown): value is Range {
+  return (
+    value != null &&
+    typeof value === 'object' &&
+    'index' in value &&
+    typeof value.index === 'number' &&
+    'length' in value &&
+    typeof value.length === 'number'
+  );
+}
+
+export type { Bounds, DebugLevel, EmitterSource, SemanticHTMLOptions };
 export { Parchment, Range };
 
 export { globalRegistry, expandConfig, overload, Quill as default };

@@ -1,5 +1,6 @@
 import Inline from '../blots/inline.js';
 import { escapeText } from '../blots/text.js';
+import type { SemanticHTMLOptions } from '../core/editor.js';
 
 class Link extends Inline {
   static blotName = 'link';
@@ -32,7 +33,7 @@ class Link extends Inline {
     }
   }
 
-  html(index: number, length: number) {
+  html(index: number, length: number, options?: SemanticHTMLOptions) {
     const LinkClass = this.constructor as typeof Link;
     const href = LinkClass.sanitize(this.domNode.getAttribute('href') || '');
     const rel = this.domNode.getAttribute('rel');
@@ -45,12 +46,15 @@ class Link extends Inline {
     const parts: string[] = [];
     this.children.forEachAt(index, length, (child, offset, childLength) => {
       if ('html' in child && typeof child.html === 'function') {
-        parts.push(child.html(offset, childLength));
+        parts.push(child.html(offset, childLength, options));
       } else if ('value' in child && typeof child.value === 'function') {
+        const escapedText = escapeText(
+          (child.value() as string).slice(offset, offset + childLength),
+        );
         parts.push(
-          escapeText(
-            (child.value() as string).slice(offset, offset + childLength),
-          ).replaceAll(' ', '&nbsp;'),
+          options?.preserveWhitespace
+            ? escapedText
+            : escapedText.replaceAll(' ', '&nbsp;'),
         );
       } else {
         parts.push((child.domNode as Element).outerHTML);

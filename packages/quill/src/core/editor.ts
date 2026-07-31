@@ -17,12 +17,17 @@ type SelectionInfo = {
 };
 
 export type SemanticHTMLOptions = {
+  /**
+   * Keep regular spaces in the exported HTML instead of converting them to
+   * non-breaking spaces. Browsers may collapse consecutive regular spaces.
+   * @default false
+   */
   preserveWhitespace?: boolean;
 };
 
 const defaultSemanticHTMLOptions: SemanticHTMLOptions = {
   preserveWhitespace: false,
-} as const;
+};
 
 class Editor {
   scroll: Scroll;
@@ -385,7 +390,7 @@ function convertHTML(
   isRoot = false,
 ): string {
   if ('html' in blot && typeof blot.html === 'function') {
-    return blot.html(index, length);
+    return blot.html(index, length, options);
   }
   if (blot instanceof TextBlot) {
     const escapedText = escapeText(blot.value().slice(index, index + length));
