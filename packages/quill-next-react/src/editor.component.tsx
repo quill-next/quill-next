@@ -7,6 +7,7 @@ import { ForkedRegistry } from "./forked-registry";
 import { EditorChangeHandler } from './types/editor-change-handler.type';
 import { NextTheme } from './next-theme';
 import { NextKeyboard } from "./modules/next-keyboard";
+import { resolveEditorTheme } from "./editor-theme";
 
 export interface IQuillEditorProps {
   defaultValue?: Delta;
@@ -52,7 +53,7 @@ function makeQuillWithBlots(container: HTMLElement, options: QuillOptions, blots
   return quill;
 }
 
-async function loadTheme(theme: string): Promise<void> {
+async function loadTheme(theme: QuillOptions["theme"]): Promise<void> {
   const insertTheme = (theme: string, content: string): void => {
     let styleElement: HTMLStyleElement | null = null;
     const existingStyleElement = document.head.querySelectorAll(`style[data-quill-theme="${theme}"]`);
@@ -100,13 +101,10 @@ const QuillEditor = (props: IQuillEditorProps): React.ReactNode => {
   const [themeLoaded, setThemeLoaded] = useState(false);
 
   useEffect(() => {
-    let theme = config?.theme;
-
-    if (!theme) {
-      theme = 'next';
-    }
+    const theme = resolveEditorTheme(config?.theme);
 
     let cancel = false;
+    setThemeLoaded(false);
     loadTheme(theme)
       .then(() => {
         if (cancel) {
@@ -133,12 +131,9 @@ const QuillEditor = (props: IQuillEditorProps): React.ReactNode => {
 
     const quillOptions: QuillOptions = {
       ...config,
+      theme: resolveEditorTheme(config?.theme),
       registry: forkedRegistry,
     };
-
-    if (!quillOptions.theme) {
-      quillOptions.theme = 'next';
-    }
 
     const quill = makeQuillWithBlots(
       containerRef.current!,
