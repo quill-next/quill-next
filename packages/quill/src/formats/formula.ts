@@ -30,7 +30,8 @@ class Formula extends Embed {
   domNode: HTMLElement;
 
   html() {
-    const formula = Formula.value(this.domNode) || '';
+    const FormulaClass = this.constructor as typeof Formula;
+    const formula = FormulaClass.value(this.domNode) || '';
     return `<span>${escapeText(formula)}</span>`;
   }
 }
