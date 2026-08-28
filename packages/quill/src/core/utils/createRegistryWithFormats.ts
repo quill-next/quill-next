@@ -1,7 +1,15 @@
 import { Registry } from 'parchment';
 
 const MAX_REGISTER_ITERATIONS = 100;
-const CORE_FORMATS = ['block', 'break', 'cursor', 'inline', 'scroll', 'text'];
+const CORE_FORMATS = [
+  'block',
+  'break',
+  'cursor',
+  'inline',
+  'scroll',
+  'soft-break',
+  'text',
+];
 
 const createRegistryWithFormats = (
   formats: string[],
