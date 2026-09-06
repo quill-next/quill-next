@@ -203,4 +203,22 @@ describe('Link XSS Prevention (getSemanticHTML)', () => {
     expect(html).toContain('>click&nbsp;here</a>');
     expect(html).toContain('href="https://example.com"');
   });
+
+  test('preserves link text spaces without bypassing URL sanitization', () => {
+    const editor = new Editor(createScroll('<p>click here</p>'));
+    editor.formatText(0, 10, { link: 'https://example.com' });
+
+    const anchor = editor.scroll.domNode.querySelector('a')!;
+    anchor.setAttribute('href', 'javascript:alert(document.cookie)'); // eslint-disable-line no-script-url
+
+    const defaultHTML = editor.getHTML(0, 10);
+    const preservedHTML = editor.getHTML(0, 10, {
+      preserveWhitespace: true,
+    });
+
+    expect(defaultHTML).toContain('>click&nbsp;here</a>');
+    expect(preservedHTML).toContain('>click here</a>');
+    expect(preservedHTML).not.toContain('javascript:');
+    expect(preservedHTML).toContain('href="about:blank"');
+  });
 });

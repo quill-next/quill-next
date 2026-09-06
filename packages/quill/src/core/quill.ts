@@ -9,7 +9,7 @@ import type Clipboard from '../modules/clipboard.js';
 import type History from '../modules/history.js';
 import type Keyboard from '../modules/keyboard.js';
 import type Uploader from '../modules/uploader.js';
-import Editor from './editor.js';
+import Editor, { type SemanticHTMLOptions } from './editor.js';
 import Emitter, { ensureDocumentListeners } from './emitter.js';
 import type { EmitterSource } from './emitter.js';
 import instances from './instances.js';
@@ -541,15 +541,55 @@ class Quill {
     return this.selection.getRange()[0];
   }
 
-  getSemanticHTML(range: Range): string;
+  getSemanticHTML(options?: SemanticHTMLOptions): string;
+  getSemanticHTML(range: Range, options?: SemanticHTMLOptions): string;
+  getSemanticHTML(index: number, options?: SemanticHTMLOptions): string;
   getSemanticHTML(index?: number, length?: number): string;
-  getSemanticHTML(index: Range | number = 0, length?: number) {
-    if (typeof index === 'number') {
-      length = length ?? this.getLength() - index;
+  getSemanticHTML(
+    index: number | undefined,
+    length: number | undefined,
+    options?: SemanticHTMLOptions,
+  ): string;
+  getSemanticHTML(
+    indexOrRangeOrOptions?: Range | number | SemanticHTMLOptions,
+    lengthOrOptions?: number | SemanticHTMLOptions,
+    options?: SemanticHTMLOptions,
+  ) {
+    if (indexOrRangeOrOptions === undefined) {
+      const length =
+        typeof lengthOrOptions === 'number'
+          ? lengthOrOptions
+          : this.getLength();
+      const finalOptions =
+        options ??
+        (typeof lengthOrOptions === 'number' ? undefined : lengthOrOptions);
+      return this.editor.getHTML(0, length, finalOptions);
     }
-    // @ts-expect-error
-    [index, length] = overload(index, length);
-    return this.editor.getHTML(index, length);
+
+    if (typeof indexOrRangeOrOptions === 'number') {
+      const index = indexOrRangeOrOptions;
+      const length =
+        typeof lengthOrOptions === 'number'
+          ? lengthOrOptions
+          : this.getLength() - index;
+      const finalOptions =
+        options ??
+        (typeof lengthOrOptions === 'number' ? undefined : lengthOrOptions);
+      return this.editor.getHTML(index, length, finalOptions);
+    }
+
+    if (isRange(indexOrRangeOrOptions)) {
+      const finalOptions =
+        options ??
+        (typeof lengthOrOptions === 'number' ? undefined : lengthOrOptions);
+      return this.editor.getHTML(
+        indexOrRangeOrOptions.index,
+        indexOrRangeOrOptions.length,
+        finalOptions,
+      );
+    }
+
+    return this.editor.getHTML(0, this.getLength(), indexOrRangeOrOptions);
   }
 
   getText(range?: Range): string;
@@ -1049,7 +1089,18 @@ function shiftRange(
   return new Range(start, end - start);
 }
 
-export type { Bounds, DebugLevel, EmitterSource };
+function isRange(value: unknown): value is Range {
+  return (
+    value != null &&
+    typeof value === 'object' &&
+    'index' in value &&
+    typeof value.index === 'number' &&
+    'length' in value &&
+    typeof value.length === 'number'
+  );
+}
+
+export type { Bounds, DebugLevel, EmitterSource, SemanticHTMLOptions };
 export { Parchment, Range };
 
 export { globalRegistry, expandConfig, overload, Quill as default };

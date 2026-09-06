@@ -5,6 +5,7 @@ import type {
   EmitterSource,
   ExpandedQuillOptions,
   QuillOptions,
+  SemanticHTMLOptions,
 } from './core/quill.js';
 
 import Block, { BlockEmbed } from './blots/block.js';
@@ -33,6 +34,7 @@ export type {
   EmitterSource,
   ExpandedQuillOptions,
   QuillOptions,
+  SemanticHTMLOptions,
 };
 export { default as Theme } from './core/theme.js';
 

@@ -116,16 +116,28 @@ This method is useful for exporting the contents of the editor in a format that 
 
 The `length` parameter defaults to the length of the remaining document.
 
+The optional `preserveWhitespace` setting controls how regular spaces are
+serialized. By default, spaces are converted to `&nbsp;` so consecutive spaces
+survive HTML rendering. Set `preserveWhitespace` to `true` to export regular,
+wrappable spaces instead. Browsers may collapse consecutive regular spaces.
+
 **Methods**
 
 ```typescript
-getSemanticHTML(index: number = 0, length: number = remaining): string
+getSemanticHTML(options?: SemanticHTMLOptions): string
+getSemanticHTML(range: Range, options?: SemanticHTMLOptions): string
+getSemanticHTML(index: number = 0, options?: SemanticHTMLOptions): string
+getSemanticHTML(index: number = 0, length: number = remaining, options?: SemanticHTMLOptions): string
 ```
 
 **Examples**
 
 ```typescript
 const html = quill.getSemanticHTML(0, 10);
+
+const wrappableHTML = quill.getSemanticHTML({
+  preserveWhitespace: true,
+});
 ```
 
 ### insertEmbed

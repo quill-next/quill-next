@@ -5,6 +5,7 @@ import type {
   EmitterSource,
   ExpandedQuillOptions,
   QuillOptions,
+  SemanticHTMLOptions,
 } from './core.js';
 
 import { AlignClass, AlignStyle } from './formats/align.js';
@@ -139,6 +140,7 @@ export type {
   EmitterSource,
   ExpandedQuillOptions,
   QuillOptions,
+  SemanticHTMLOptions,
   KeyboardOptions,
   BindingObject,
   Binding,

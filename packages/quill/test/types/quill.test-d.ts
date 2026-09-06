@@ -1,6 +1,11 @@
 import { assertType, expectTypeOf } from 'vitest';
 import Quill, { Delta } from '../../src/quill.js';
-import type { EmitterSource, Parchment, Range } from '../../src/quill.js';
+import type {
+  EmitterSource,
+  Parchment,
+  Range,
+  SemanticHTMLOptions,
+} from '../../src/quill.js';
 import type { default as Block, BlockEmbed } from '../../src/blots/block.js';
 import SnowTheme from '../../src/themes/snow.js';
 import { LeafBlot } from 'parchment';
@@ -54,9 +59,18 @@ const quill = new Quill('#editor');
 }
 
 {
+  const options: SemanticHTMLOptions = { preserveWhitespace: true };
   assertType<string>(quill.getSemanticHTML());
+  assertType<string>(quill.getSemanticHTML(options));
   assertType<string>(quill.getSemanticHTML(1));
+  assertType<string>(quill.getSemanticHTML(1, options));
   assertType<string>(quill.getSemanticHTML(1, 2));
+  assertType<string>(quill.getSemanticHTML(undefined, undefined));
+  assertType<string>(quill.getSemanticHTML(1, 2, options));
+  assertType<string>(quill.getSemanticHTML(1, undefined, options));
+  assertType<string>(quill.getSemanticHTML({ index: 1, length: 2 }, options));
+  assertType<string>(quill.getSemanticHTML(undefined, 2, options));
+  assertType<string>(quill.getSemanticHTML(undefined, undefined, options));
 }
 
 {

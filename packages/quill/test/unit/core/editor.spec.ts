@@ -1412,6 +1412,46 @@ describe('Editor', () => {
       expect(editor.getHTML(0, 5)).toEqual('<ul><li>Test</li></ul>');
     });
 
+    test('converts spaces to non-breaking spaces by default', () => {
+      const editor = createEditor('<p>This is Quill</p>');
+      expect(editor.getHTML(0, 14)).toEqual('<p>This&nbsp;is&nbsp;Quill</p>');
+      expect(editor.getHTML(0, 14, { preserveWhitespace: false })).toEqual(
+        '<p>This&nbsp;is&nbsp;Quill</p>',
+      );
+    });
+
+    test('preserves regular spaces when enabled', () => {
+      const editor = createEditor('<p>This is Quill</p>');
+      expect(editor.getHTML(0, 14, { preserveWhitespace: true })).toEqual(
+        '<p>This is Quill</p>',
+      );
+    });
+
+    test('preserves consecutive spaces without bypassing text escaping', () => {
+      const editor = createEditor(
+        new Delta().insert('  A < B & C  ', { bold: true }).insert('\n'),
+      );
+      expect(editor.getHTML(0, 13, { preserveWhitespace: true })).toEqual(
+        '<strong>  A &lt; B &amp; C  </strong>',
+      );
+    });
+
+    test('preserves spaces across inline formats and lists', () => {
+      const inlineEditor = createEditor(
+        '<p><strong>One two</strong> <em>three four</em></p>',
+      );
+      expect(inlineEditor.getHTML(0, 19, { preserveWhitespace: true })).toEqual(
+        '<p><strong>One two</strong> <em>three four</em></p>',
+      );
+
+      const listEditor = createEditor(
+        '<ol><li>One two</li><li>Three four</li></ol>',
+      );
+      expect(listEditor.getHTML(0, 19, { preserveWhitespace: true })).toEqual(
+        '<ol><li>One two</li><li>Three four</li></ol>',
+      );
+    });
+
     test('across lines', () => {
       const editor = createEditor(
         '<h1 class="ql-align-center">Header</h1><p>Text</p><blockquote>Quote</blockquote>',
