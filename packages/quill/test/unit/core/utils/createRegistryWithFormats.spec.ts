@@ -16,6 +16,15 @@ describe('createRegistryWithFormats', () => {
     expect(registry.query('bold')).toBeFalsy();
   });
 
+  test('registers soft-break as a core format', () => {
+    // Block.insertAt materializes a soft-break blot for every
+    // SOFT_BREAK_CHARACTER (clipboard matchBreak, Keyboard.handleShiftEnter),
+    // regardless of the "formats" config, so the restricted registry must
+    // always carry it or those inserts throw ParchmentError.
+    const registry = createRegistryWithFormats(['bold'], globalRegistry, debug);
+    expect(registry.query('soft-break')).toBeTruthy();
+  });
+
   test('register specified formats', () => {
     const registry = createRegistryWithFormats(['bold'], globalRegistry, debug);
     expect(registry.query('cursor')).toBeTruthy();
