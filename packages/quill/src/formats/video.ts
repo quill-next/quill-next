@@ -52,7 +52,8 @@ class Video extends BlockEmbed {
   }
 
   html() {
-    const video = Video.sanitize(Video.value(this.domNode) || '');
+    const VideoClass = this.constructor as typeof Video;
+    const video = VideoClass.sanitize(VideoClass.value(this.domNode) || '');
     return `<a href="${escapeText(video)}">${escapeText(video)}</a>`;
   }
 }

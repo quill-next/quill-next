@@ -9,6 +9,14 @@ import Formula from '../../../src/formats/formula.js';
 const createScroll = (html: string) =>
   baseCreateScroll(html, createRegistry([Formula]));
 
+class ReplacementFormula extends Formula {
+  static override blotName = 'formula';
+
+  static override value() {
+    return 'replacement <formula>';
+  }
+}
+
 describe('Formula', () => {
   // Mock KaTeX for tests
   beforeAll(() => {
@@ -114,6 +122,22 @@ describe('Formula', () => {
 
       // Should double-escape (correct behavior - user wanted literal text)
       expect(html).toContain('&amp;lt;script&amp;gt;');
+    });
+
+    test('serializes the value from a registered subclass', () => {
+      const scroll = baseCreateScroll(
+        '<p><br></p>',
+        createRegistry([ReplacementFormula]),
+      );
+      const editor = new Editor(scroll);
+      editor.insertEmbed(0, 'formula', 'original formula');
+
+      expect(editor.getContents(0, 2).ops[0]).toEqual({
+        insert: { formula: 'replacement <formula>' },
+      });
+      expect(editor.getHTML(0, 2)).toContain(
+        '<span>replacement &lt;formula&gt;</span>',
+      );
     });
   });
 });

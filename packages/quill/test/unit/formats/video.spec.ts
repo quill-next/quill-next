@@ -9,6 +9,14 @@ import Video from '../../../src/formats/video.js';
 const createScroll = (html: string) =>
   baseCreateScroll(html, createRegistry([Video]));
 
+class ReplacementVideo extends Video {
+  static override blotName = 'video';
+
+  static override value() {
+    return 'https://replacement.example/video';
+  }
+}
+
 describe('Video', () => {
   describe('XSS Prevention', () => {
     test('escapes HTML tags in video URL', () => {
@@ -92,6 +100,23 @@ describe('Video', () => {
 
       // Should create valid HTML even with empty URL
       expect(html).toContain('<a href=""></a>');
+    });
+
+    test('serializes the value from a registered subclass', () => {
+      const scroll = baseCreateScroll(
+        '<p><br></p>',
+        createRegistry([ReplacementVideo]),
+      );
+      const editor = new Editor(scroll);
+      editor.insertEmbed(0, 'video', 'https://original.example/video');
+
+      expect(editor.getContents(0, 2).ops[0]).toEqual({
+        insert: { video: 'https://replacement.example/video' },
+      });
+      expect(editor.getHTML(0, 2)).toContain(
+        '<a href="https://replacement.example/video">' +
+          'https://replacement.example/video</a>',
+      );
     });
   });
 });
