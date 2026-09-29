@@ -8,6 +8,7 @@ import Header from '../../../src/formats/header.js';
 import Image from '../../../src/formats/image.js';
 import IndentClass from '../../../src/formats/indent.js';
 import Italic from '../../../src/formats/italic.js';
+import Underline from '../../../src/formats/underline.js';
 import Link from '../../../src/formats/link.js';
 import List, { ListContainer } from '../../../src/formats/list.js';
 import {
@@ -249,6 +250,19 @@ describe('Clipboard', () => {
       const html = '<div>1   2    3</div>';
       const delta = createClipboard().convert({ html });
       expect(delta).toEqual(new Delta().insert('1 2 3'));
+    });
+
+    test('preserves ideographic spaces and their underline', () => {
+      const spaces = '\u3000'.repeat(8);
+      const html = `<span style="text-decoration:underline;">${spaces}</span>`;
+      const delta = createClipboard([Underline]).convert({ html });
+      expect(delta).toEqual(new Delta().insert(spaces, { underline: true }));
+    });
+
+    test('preserves Unicode spaces next to newlines in HTML', () => {
+      const html = '<div>\n<span>\u2002\u202f\u3000</span>\n</div>';
+      const delta = createClipboard().convert({ html });
+      expect(delta).toEqual(new Delta().insert('\u2002\u202f\u3000'));
     });
 
     test('inline whitespace', () => {

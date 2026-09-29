@@ -676,14 +676,15 @@ function matchText(node: HTMLElement, delta: Delta, scroll: ScrollBlot) {
   }
   if (!isPre(node)) {
     if (
-      text.trim().length === 0 &&
+      /^[ \t\n\r\f]*$/.test(text) &&
       text.includes('\n') &&
       !isBetweenInlineElements(node, scroll)
     ) {
       return delta;
     }
-    // convert all non-nbsp whitespace into regular space
-    text = text.replace(/[^\S\u00a0]/g, ' ');
+    // Only HTML's collapsible whitespace should become regular spaces.
+    // JavaScript's \s also matches non-collapsible Unicode spaces.
+    text = text.replace(/[ \t\n\r\f]/g, ' ');
     // collapse consecutive spaces into one
     text = text.replace(/ {2,}/g, ' ');
     if (
