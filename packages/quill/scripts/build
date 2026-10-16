@@ -16,5 +16,6 @@ $NODE_BIN/babel src --out-dir $DIST --copy-files --no-copy-ignored --extensions 
 $NODE_BIN/webpack -- --mode $1
 # https://github.com/webpack-contrib/mini-css-extract-plugin/issues/151
 cp -R $DIST/dist/*.css $DIST
+cp -R $DIST/dist/*.css.map $DIST
 cp -R $DIST/dist/*.txt $DIST
 rm -rf $DIST/dist
